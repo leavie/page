@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>全視窗繪製canvas</title>
+  <style>
+    * { margin: 0; padding: 0; } /* 星號「*」代表所有元素*/
+     html, body { height: 100%; width: 100%; }
+     canvas {display: block;}
+  </style>
+</head>
+<body >
+  <canvas id="canvas" width="1024" height="600">You will See the message if your browser doesn't support canvas api</canvas>
+  <script type="text/javascript">
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      window.onresize = resizeCanvas ; // 將reiszeCanvas function註冊給系統的onresize事件
+      resizeCanvas(); // 第一次加載時，手動呼叫，如不這樣做，假如使用者沒有resize時則不會繪製畫面
+
+
+
+      function resizeCanvas() { //每當使用者resize時，系統自動呼叫這個function
+             canvas.width = window.innerWidth; // 瀏覽器視窗的高度，inner代表範圍只有內容框框，不含瀏覽器的工具列等等
+             canvas.height = window.innerHeight; // 瀏覽器視窗的寬度，同上
+             ctx.fillStyle = "#fff" // 白色等同於 rgb(255,255,255)， rgba(255,255,255, 0.5) alpha 0.5 代表不透明度，0是完全透明，1是完全不透明
+             ctx.fillRect(0, 0, canvas.width, canvas.height); // 重繪背景在整個canvas上，視覺效果為畫面被清空
+             draw() //每當使用者resize時，呼叫這個function
+      };
+      function draw() { // 主要繪製的內容
+        var H = window.innerHeight // 獲取當前視窗的高度，弄成一個簡寫
+        var W = window.innerWidth //
+
+        console.log(`H:${H} W:${W}`) // 在console印出，內容像是 H:420 W:234
+
+        ctx.strokeStyle="#bbaacc"; // 框線顏色
+        ctx.fillStyle="#aeaeae"; // 填充顏色
+        ctx.lineWidth=5; // 框線寬度
+
+        ctx.beginPath(); // 建立path 不可見！！，需要被繪製
+        ctx.moveTo(0,H); // 指定座標，成為path的第一個點
+        ctx.lineTo(W,0); // 指定座標，成為path的第二個點
+        ctx.lineTo(W,H); // 指定座標，成為path的第三個點 ，註解掉這個看看有什麼變化！！
+        ctx.closePath(); // 封閉path，比如你畫兩不共線的直線，呼叫封閉path後，會自動加入第三個邊，因此得到一個三角形
+        ctx.stroke(); // 將path 的外框畫出來，不然看不見
+        ctx.fill(); // 將path 包圍的區域畫出來，又稱為填滿，path是封閉路徑，才看得出填滿效果
+    }
+</script>
+</body>
+</html>

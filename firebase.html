@@ -1,0 +1,52 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#config-web-app -->
+ <!-- Add Firebase products that you want to use -->
+ <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
+ <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCzb3eH8rHZrgXA__mJF4mud6ZBNTm1Xig",
+    authDomain: "loginsystem-391ea.firebaseapp.com",
+    databaseURL: "https://loginsystem-391ea.firebaseio.com",
+    projectId: "loginsystem-391ea",
+    storageBucket: "loginsystem-391ea.appspot.com",
+    messagingSenderId: "46884833465",
+    appId: "1:46884833465:web:cac00816077eecef"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var 資料庫 = firebase.database()
+  var 蛋餅  = 資料庫.ref('商品/蛋餅')
+
+/*增刪改查-查
+firebase.html:31 快照 i {node_: a, ref_: o, index_: e}
+firebase.html:33 key 原味 value {單價: 20}
+firebase.html:33 key 叉燒 value {單價: 50}
+firebase.html:33 key 培根 value {單價: 45}
+firebase.html:33 key 火腿 value {單價: 35}
+firebase.html:33 key 燒肉 value {單價: 55}
+firebase.html:33 key 燻雞 value {單價: 45}
+firebase.html:33 key 牛肉 value {單價: 70}
+firebase.html:33 key 玉米 value {單價: 40}
+firebase.html:33 key 總匯 value {單價: 70}
+firebase.html:33 key 肉鬆 value {單價: 35}
+firebase.html:33 key 蔬菜 value {單價: 45}
+firebase.html:33 key 豬排 value {單價: 40}
+firebase.html:33 key 起司 value {單價: 30}
+firebase.html:33 key 鮪魚 value {單價: 40}
+*/
+  蛋餅.once("value")
+  .then(快照 => {
+    console.log('快照',快照)
+      快照.forEach(function(節點) {
+        console.log('key', 節點.key,'value', 節點.val())
+      })
+    })
+
+
+  </script>
