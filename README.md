@@ -1,2 +1,2 @@
 # page
-page[https://leavie.github.io/page/]
+https://leavie.github.io/page/
