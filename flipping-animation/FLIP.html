@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLIP</title>
+    <style>
+        :root {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            box-sizing: border-box;
+            width: 1000px;
+            height: 300px;
+            background: #f0f8ff;
+            border: 2px #ff0000 dashed;
+        }
+
+        .wrapper {
+            display: inline-block;
+            border: 2px #ffc0cb dashed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box" id="box"></div>
+    </div>
+</body>
+<script>
+    const box = document.getElementById( 'box' )
+    const rectFirst = box.getBoundingClientRect()
+
+    function doSomething () {
+        const p = document.createElement( 'p' )
+        p.textContent = 'test test test test test test'
+        document.body.insertAdjacentElement( "afterbegin", p )
+
+        box.style.width = '100px'
+    }
+
+    doSomething()
+
+    const rectLast = box.getBoundingClientRect()
+
+    let dx, dy, dw, dh
+
+    dx = rectFirst.x - rectLast.x
+    dy = rectFirst.y - rectLast.y
+    dw = rectFirst.width / rectLast.width
+    dh = rectFirst.height / rectLast.height
+
+    box.animate( [ {
+        transformOrigin: 'top left',
+        transform: `
+                        translateX(${ dx }px) translateY(${ dy }px) scaleX(${ dw }) scaleY(${ dh })
+                    `
+    }, {
+        transformOrigin: 'top left',
+        transform: 'none'
+    } ], {
+        duration: 4000,
+        delay: 000
+    } )
+
+    console.log( rectFirst, rectLast )
+</script>
+
+</html>

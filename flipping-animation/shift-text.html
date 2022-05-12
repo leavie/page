@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shift Text</title>
+        <style>
+            span {
+                display: inline-block;
+            }
+
+        </style>
+        <script src="flipping.js"></script>
+    </head>
+
+    <body>
+        <div id="ABCD">
+            <span data-flip-key="A">A</span>
+            <span data-flip-key="F">F</span>
+            <span data-flip-key="B">B</span>
+            <span data-flip-key="C">C</span>
+            <span data-flip-key="E">E</span>
+            <span data-flip-key="D">D</span>
+        </div>
+        <div id="DCBA">
+            <span data-flip-key="B">B</span>
+            <span data-flip-key="D">D</span>
+            <span data-flip-key="C">C</span>
+            <span data-flip-key="A">A</span>
+        </div>
+        <button id="toggle">toggle</button>
+    </body>
+    <script>
+        const flipping = new Flipping()
+        const ABCD = document.getElementById('ABCD')
+        const DCBA = document.getElementById('DCBA')
+
+        const toggle = document.getElementById('toggle')
+
+
+        function init()
+        {
+            DCBA.hidden = true
+        }
+
+        function toggleShift()
+        {
+            ABCD.hidden = !ABCD.hidden
+            DCBA.hidden = !DCBA.hidden
+        }
+
+
+
+        function addEventListeners()
+        {
+            shift = flipping.wrap(toggleShift)
+            toggle.onclick = shift
+        }
+
+        init()
+        addEventListeners()
+
+
+
+    </script>
+
+</html>
