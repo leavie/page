@@ -1,161 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Images Animation</title>
-        <style>
-            body {
-                padding: 0;
-                margin: 0;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Images Animation</title>
+    <style>
+        /* stylelint-disable-next-line selector-max-type */
+        body {
+            padding: 0;
+            margin: 0;
+        }
 
-            .box {
-                box-sizing: border-box;
-                width: 200px;
-                height: 200px;
-                background: aliceblue;
-                /*                 border: 2px red dashed; */
-                left: 150px;
-                top: 200px;
-                position: relative;
-            }
+        .box {
+            position: relative;
+            top: 200px;
+            /*                 border: 2px red dashed; */
+            left: 150px;
+            width: 200px;
+            height: 200px;
+            background: #f0f8ff;
+            box-sizing: border-box;
+        }
 
-            .big {
-                box-sizing: border-box;
-                width: 500px;
-                height: 500px;
-                background: pink;
-                /*                 border: 2px red dashed; */
-            }
+        .big {
+            box-sizing: border-box;
+            width: 500px;
+            height: 500px;
+            background: #ffc0cb;
+            /*                 border: 2px red dashed; */
+        }
 
-            .text {
-                font-size: 5rem;
-                color: black;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                user-select: none;
-            }
+        .text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 5rem;
+            color: #ffffff;
+            user-select: none;
+        }
 
-            :root {
-                background: #efefef;
-            }
+        :root {
+            background: #efefef;
+        }
 
-            .rows {
-                height: 100vh;
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: space-evenly;
-                align-content: space-evenly;
-            }
+        .rows {
+            display: flex;
+            justify-content: space-evenly;
+            height: 100vh;
+            flex-flow: row wrap;
+            align-content: space-evenly;
+        }
 
-            .rows .wrapper {
-                width: 200px;
-                padding: 15px 20px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 1px 3px 11px 2px rgba(50, 50, 50, 0.1);
-            }
+        .rows .wrapper {
+            padding: 15px 20px;
+            width: 200px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 1px 3px 11px 2px #3232321a;
+        }
 
-            .wrapper img {
-                width: 100%;
-            }
+        /* stylelint-disable-next-line selector-max-type */
+        .wrapper img {
+            width: 100%;
+        }
 
-            .modal {
-                display: block;
-                position: absolute;
-                top: 0;
-                background: black;
-                height: 100vh;
-            }
+        .modal {
+            position: absolute;
+            top: 0;
+            display: block;
+            height: 100vh;
+            background: #000000;
+        }
 
-            .model__wrapper {}
+        .model__wrapper {
+            width: 100vw;
+        }
 
-            .model__wrapper img {
-                width: 100%;
-            }
+        /* stylelint-disable-next-line selector-max-type */
+        .model__wrapper img {
+            width: 100vw;
+        }
+    </style>
+</head>
 
-        </style>
-    </head>
-
-    <body>
-        <div class="rows">
-            <div class="wrapper">
-                <img src="download.avif"" />
+<body>
+    <div class="rows">
+        <div class="wrapper">
+            <img src="asset/image/photo-zelda.webp"" />
             </div>
             <div class=" wrapper">
-                <img src="download.avif"" />
+            <img src="asset/image/photo-zelda.webp"" />
             </div>
             <div class=" wrapper">
-                <img src="download.avif"" />
+            <img src="asset/image/photo-zelda.webp"" />
             </div>
         </div>
         <div class=" modal">
-                <div id="big" class="model__wrapper" data-flip-key="photo1">
-                    <img src="download.avif" />
-                </div>
+            <div id="big" class="model__wrapper" data-flip-key="photo1">
+                <img src="asset/image/photo-zelda.webp" />
             </div>
-    </body>
-    <script src="flipping.js"></script>
-    <script>
-        const imgs = Array.from(document.querySelectorAll('.wrapper img'))
-        const big = document.getElementById('big')
-        const flipping = new Flipping()
+        </div>
+</body>
+<script src="flipping.js"></script>
+<script>
+    const imgs = Array.from( document.querySelectorAll( '.wrapper img' ) )
+    const big = document.getElementById( 'big' )
+    const flipping = new Flipping()
 
-        function init()
-        {
-            big.hidden = true
+    function init () {
+        big.hidden = true
+    }
+
+    function addEventListeners () {
+        function toggle ( img, big ) {
+            img.hidden = !img.hidden
+            big.hidden = !big.hidden
         }
 
-        function addEventListeners()
-        {
-            function toggle(img, big)
-            {
-                img.hidden = !img.hidden
-                big.hidden = !big.hidden
-            }
+
+        function setImgFlipKey ( img ) {
+            imgs.forEach( img =>
+                img.removeAttribute( 'data-flip-key' ) )
+            img.dataset.flipKey = 'photo1'
+        }
+
+        function setBigFlipKey ( big ) {
+            big.dataset.flipKey = 'photo1'
+        }
 
 
-            function setImgFlipKey(img)
-            {
-                imgs.forEach(img =>
-                    img.removeAttribute('data-flip-key'))
-                img.dataset.flipKey = 'photo1'
-            }
+        imgs.forEach( img => {
+            const toggleImg = flipping.wrap( toggle.bind( null, img, big ) )
 
-            function setBigFlipKey(big)
-            {
-                big.dataset.flipKey = 'photo1'
-            }
-
-
-            imgs.forEach(img =>
-            {
-                const toggleImg = flipping.wrap(toggle.bind(null, img, big))
-
-                img.onclick = () =>
-                {
-                    setImgFlipKey(img)
+            img.onclick = () => {
+                setImgFlipKey( img )
+                toggleImg()
+                big.onclick = () => {
+                    setBigFlipKey( big )
                     toggleImg()
-                    big.onclick = () =>
-                    {
-                        setBigFlipKey(big)
-                        toggleImg()
-                    }
                 }
-            })
+            }
+        } )
 
 
 
-        }
+    }
 
-        init()
-        addEventListeners()
+    init()
+    addEventListeners()
 
-    </script>
+</script>
 
 </html>
