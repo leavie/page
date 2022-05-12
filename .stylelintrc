@@ -1,0 +1,112 @@
+{
+    "plugins": [
+        "/Users/leavie/.config/yarn/global/node_modules/stylelint-order"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "**/*.(html|vue)",
+                "*.(html|vue)"
+            ],
+            "customSyntax": "/Users/leavie/.config/yarn/global/node_modules/postcss-html"
+        }
+    ],
+    "ignoreFiles": [
+        "**/vendor/**/*.*"
+    ],
+    "rules": {
+        "color-hex-case": "lower",
+        "color-hex-length": "long",
+        "color-no-invalid-hex": true,
+        "color-named": "never",
+        "number-leading-zero": null,
+        "declaration-no-important": true,
+        "selector-max-type": 0,
+        "selector-max-id": 0,
+        "length-zero-no-unit": true,
+        "declaration-block-no-shorthand-property-overrides": true,
+        "declaration-block-no-duplicate-properties": true,
+        "function-linear-gradient-no-nonstandard-direction": true,
+        "selector-class-pattern": [
+            "^([a-z][a-z0-9]*)((-|__|--|_|@)[a-z0-9]+)*$",
+            {
+                "message": "Expected class selector conform BEM conventions"
+            }
+        ],
+        "order/properties-order": [
+            "position",
+            "top",
+            "right",
+            "bottom",
+            "left",
+            "z-index",
+            "display",
+            "flex-wrap",
+            "justify-content",
+            "align-items",
+            "float",
+            "clear",
+            "overflow",
+            "overflow-x",
+            "overflow-y",
+            "padding",
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left",
+            "margin",
+            "margin-top",
+            "margin-right",
+            "margin-bottom",
+            "margin-left",
+            "width",
+            "min-width",
+            "max-width",
+            "height",
+            "min-height",
+            "max-height",
+            "font-size",
+            "font-family",
+            "font-weight",
+            "text-justify",
+            "text-align",
+            "text-indent",
+            "text-overflow",
+            "text-decoration",
+            "white-space",
+            "color",
+            "background",
+            "background-position",
+            "background-repeat",
+            "background-size",
+            "background-color",
+            "background-clip",
+            "border",
+            "border-style",
+            "border-width",
+            "border-color",
+            "border-top-style",
+            "border-top-width",
+            "border-top-color",
+            "border-right-style",
+            "border-right-width",
+            "border-right-color",
+            "border-bottom-style",
+            "border-bottom-width",
+            "border-bottom-color",
+            "border-left-style",
+            "border-left-width",
+            "border-left-color",
+            "border-radius",
+            "opacity",
+            "filter",
+            "list-style",
+            "outline",
+            "visibility",
+            "box-shadow",
+            "text-shadow",
+            "resize",
+            "transition"
+        ]
+    }
+}
