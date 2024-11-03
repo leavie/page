@@ -75,12 +75,12 @@
             background: #000000;
         }
 
-        .model__wrapper {
+        .modal__wrapper {
             width: 100vw;
         }
 
         /* stylelint-disable-next-line selector-max-type */
-        .model__wrapper img {
+        .modal__wrapper img {
             width: 100vw;
         }
     </style>
@@ -89,24 +89,25 @@
 <body>
     <div class="rows">
         <div class="wrapper">
-            <img src="asset/image/photo-zelda.webp"" />
+            <img src="asset/image/photo-zelda.webp"/>
             </div>
-            <div class=" wrapper">
-            <img src="asset/image/photo-zelda.webp"" />
+            <div class="wrapper">
+            <img src="asset/image/photo-zelda.webp"/>
             </div>
-            <div class=" wrapper">
-            <img src="asset/image/photo-zelda.webp"" />
+            <div class="wrapper">
+            <img src="asset/image/photo-zelda.webp"/>
             </div>
         </div>
-        <div class=" modal">
-            <div id="big" class="model__wrapper" data-flip-key="photo1">
-                <img src="asset/image/photo-zelda.webp" />
+        <div class="modal">
+            <div id="big" class="modal__wrapper" data-flip-key="photo1">
+                <img src="asset/image/photo-zelda.webp"/>
             </div>
         </div>
 </body>
 <script src="flipping.js"></script>
 <script>
     const imgs = Array.from( document.querySelectorAll( '.wrapper img' ) )
+    const rows = document.querySelector( '.rows' )
     const big = document.getElementById( 'big' )
     const flipping = new Flipping()
 
@@ -114,40 +115,34 @@
         big.hidden = true
     }
 
+    function toggleBigHidden ( big ) {
+        big.hidden = !big.hidden
+    }
+    const toggleBigHiddenWithFlip = flipping.wrap(toggleBigHidden.bind(null, big))
+
     function addEventListeners () {
-        function toggle ( img, big ) {
-            img.hidden = !img.hidden
-            big.hidden = !big.hidden
+        rows.onclick = (e) => {
+            setImgFlipKey( e.target )
+            toggleBigHiddenWithFlip()
         }
 
-
-        function setImgFlipKey ( img ) {
-            imgs.forEach( img =>
-                img.removeAttribute( 'data-flip-key' ) )
-            img.dataset.flipKey = 'photo1'
+        big.onclick = () => {
+            setBigFlipKey( big )
+            toggleBigHiddenWithFlip()
         }
-
-        function setBigFlipKey ( big ) {
-            big.dataset.flipKey = 'photo1'
-        }
-
-
-        imgs.forEach( img => {
-            const toggleImg = flipping.wrap( toggle.bind( null, img, big ) )
-
-            img.onclick = () => {
-                setImgFlipKey( img )
-                toggleImg()
-                big.onclick = () => {
-                    setBigFlipKey( big )
-                    toggleImg()
-                }
-            }
-        } )
-
-
 
     }
+     function setImgFlipKey ( img ) {
+        imgs.forEach( img =>
+            img.removeAttribute( 'data-flip-key' ) )
+        img.dataset.flipKey = 'photo1'
+    }
+
+    function setBigFlipKey ( big ) {
+        big.dataset.flipKey = 'photo1'
+    }
+
+
 
     init()
     addEventListeners()
