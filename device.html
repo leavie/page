@@ -14,6 +14,17 @@
     frame;src
   </textarea>
   <button id="btn">query</button>
+  
+  <script>
+    const ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    function randInt ( n, s = 0 ) { // [s,n)
+        return ( ( Math.random() * n ) | 0 ) + s
+    }
+    // 生成指定長度的包含大寫字母、小寫字母和數字的隨機字符串
+    function randString ( characters, length ) {
+        return Array( length ).fill().map( _ => randInt( characters.length ) ).map( i => characters.charAt( i ) ).join( '' )
+    }
+  </script>
   <script>
     const prox = () => {
       const o = window.open
@@ -28,11 +39,10 @@
 
     
     const bq = () => {
-      
       const ta = document.querySelector('#ta')
       const qs = ta.value.split(/\n|;/).filter(v=>v)
       for (const q of qs) {
-        const home = `//www.bing.com/search?q=${q}`
+        const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
         window.open(home, '_blank')
       }
     }
@@ -46,6 +56,6 @@
     
     
   </script>
-  <iframe src="https://www.bing.com/search?q=hello" height="2000" width="1000" 
+  <iframe src="https://www.bing.com/search?q=hello" height="2000" width="1500" 
 ></iframe>
 </html>
