@@ -10,6 +10,38 @@
     p.textContent = navigator.deviceMemory
     document.body.append(p)
   </script>
+  <textarea id="ta" placedholder="queries..."></textarea>
+  <button id="btn">query</button>
+  <script>
+    const prox = () => {
+      const o = window.open
+      window.open = (...args) => {
+        const w = o.apply(this, args)
+        setTimeout(() => w.close(), 2000)
+      }
+      return () => {
+        window.open = o
+      }
+    }
+
+    
+    const bq = () => {
+      const ta = document.querySelector('#ta')
+      const qs = ta.value.split(/\n|;/).filter(v=>v)
+      for (const q of qs) {
+        window.open(q, '_blank')
+      }
+    }
+
+    const btn = document.querySelector('#btn')
+    btn.addEventListener('click', ()=>{
+      const unprox = prox()
+      bq()
+      unprox()
+    })
+    
+    
+  </script>
   <iframe src="https://www.bing.com/search?q=hello" height="2000" width="1000" 
 ></iframe>
 </html>
