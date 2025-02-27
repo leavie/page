@@ -17,12 +17,19 @@
   
   <script>
     const ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    function randInt ( n, s = 0 ) { // [s,n)
+    function randInt ( n, s = 0 ) { // [s,s+n)
         return ( ( Math.random() * n ) | 0 ) + s
     }
     // 生成指定長度的包含大寫字母、小寫字母和數字的隨機字符串
     function randString ( characters, length ) {
         return Array( length ).fill().map( _ => randInt( characters.length ) ).map( i => characters.charAt( i ) ).join( '' )
+    }
+    async function timer ( t ) {
+      let ct, reject
+      return [ new Promise( ( reso, rej ) => {
+          reject = rej
+          ct = setTimeout( reso, t )
+      } ), () => { clearTimeout( ct ); reject() } ]
     }
   </script>
   <script>
@@ -38,19 +45,28 @@
     }
 
     
-    const bq = () => {
+    const bq = async () => {
       const ta = document.querySelector('#ta')
       const qs = ta.value.split(/\n|;/).filter(v=>v)
+      const p = Promise.resolve()
+    //   (p.then(cb)).then(cb1)).then(cb2)
+    // cb();cb1();cb2();
+    // st(cb);st(cb1);st(cb2)
       for (const q of qs) {
-        const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
-        window.open(home, '_blank')
+        p = p.then(()=>{
+          const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
+          window.open(home, '_blank')
+          return timer(randInt(2000,5000))[0]
+        })
+        
+        // await timer(randInt(2000,5000))[0]
       }
     }
 
     const btn = document.querySelector('#btn')
-    btn.addEventListener('click', ()=>{
+    btn.addEventListener('click', async ()=>{
       const unprox = prox()
-      bq()
+      await bq()
       unprox()
     })
     
