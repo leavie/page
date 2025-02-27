@@ -30,7 +30,7 @@
       const ta = document.querySelector('#ta')
       const qs = ta.value.split(/\n|;/).filter(v=>v)
       for (const q of qs) {
-        const home = `//www.bing.com/search?=${q}`
+        const home = `//www.bing.com/search?q=${q}`
         window.open(home, '_blank')
       }
     }
