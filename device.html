@@ -47,7 +47,7 @@
     
     const bq = async () => {
       const ta = document.querySelector('#ta')
-      const qs = ta.value.split(/\n|;/).filter(v=>v)
+      const qs = ta.value.split(/\n|;| /).filter(v=>v)
       const p = Promise.resolve()
     //   (p.then(cb)).then(cb1)).then(cb2)
     // cb();cb1();cb2();
