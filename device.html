@@ -11,7 +11,7 @@
     document.body.append(p)
   </script>
   <textarea id="ta" placeholder="queries...">
-    frame;src
+    pull;requests
   </textarea>
   <button id="btn">query</button>
   
@@ -48,7 +48,7 @@
     const bq = async () => {
       const ta = document.querySelector('#ta')
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
-      const p = Promise.resolve()
+      let p = Promise.resolve()
     //   (p.then(cb)).then(cb1)).then(cb2)
     // cb();cb1();cb2();
     // st(cb);st(cb1);st(cb2)
@@ -72,6 +72,6 @@
     
     
   </script>
-  <iframe src="https://www.bing.com/search?q=hello" height="2000" width="1500" 
+<!--   <iframe src="https://www.bing.com/search?q=hello" height="2000" width="1500"  -->
 ></iframe>
 </html>
