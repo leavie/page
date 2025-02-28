@@ -31,6 +31,7 @@
           ct = setTimeout( reso, t )
       } ), () => { clearTimeout( ct ); reject() } ]
     }
+    const groupPairs = arr => arr.reduce((acc, _, i, a) => (i % 2 === 0 && acc.push(a.slice(i, i + 2)), acc), []);
   </script>
   <script>
     const prox = () => {
@@ -50,7 +51,7 @@
     const bq = async () => {
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
       let p = Promise.resolve()
-      for (const q of qs) {
+      for (const q of qs.groupPairs()) {
         p = p.then(()=>{
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
           //open(home, '_blank') // open in new window
