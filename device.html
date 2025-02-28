@@ -34,10 +34,11 @@
   </script>
   <script>
     const prox = () => {
-      const o = window.open
-      window.open = (...args) => {
-        const w = o.apply(this, args)
+      const o = open
+      open = (...args) => {
+        const w = o.apply(null, args)
         setTimeout(() => w.close(), 2000)
+        return w
       }
       return () => {
         window.open = o
@@ -49,9 +50,6 @@
       const ta = document.querySelector('#ta')
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
       let p = Promise.resolve()
-    //   (p.then(cb)).then(cb1)).then(cb2)
-    // cb();cb1();cb2();
-    // st(cb);st(cb1);st(cb2)
       for (const q of qs) {
         p = p.then(()=>{
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
