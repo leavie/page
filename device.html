@@ -14,7 +14,7 @@
     pull;requests
   </textarea>
   <button id="btn">query</button>
-  
+  <iframe id="frame" src="https://www.bing.com/search?q=hello" height="2000" width="1500"  ></iframe>
   <script>
     const ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     function randInt ( n, s = 0 ) { // [s,s+n)
@@ -41,19 +41,20 @@
         return w
       }
       return () => {
-        window.open = o
+        open = o
       }
     }
 
-    
+    const ta = document.querySelector('#ta')
+    const frame = document.querySelector('#frame')
     const bq = async () => {
-      const ta = document.querySelector('#ta')
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
       let p = Promise.resolve()
       for (const q of qs) {
         p = p.then(()=>{
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
-          window.open(home, '_blank')
+          //open(home, '_blank') // open in new window
+          frame.src = home // load in iframe
           return timer(randInt(3000,6000))[0]
         })
         
@@ -71,5 +72,4 @@
     
     
   </script>
-<iframe src="https://www.bing.com/search?q=hello" height="2000" width="1500"  ></iframe>
 </html>
