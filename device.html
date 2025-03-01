@@ -1,21 +1,25 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>Example Domain</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Security-Policy" content="frame-src *">
   </head>
   <body>
-    memory info:
-  </body>
+  <h3>memory info:</h3>  
   <script>
     const p = document.createElement('p')
     p.textContent = navigator.deviceMemory
     document.body.append(p)
   </script>
-  <textarea id="ta" placeholder="queries;qa;qb..." width=1200 height=300>
-  </textarea>
+  <textarea id="ta" placeholder="queries;qa;qb..." width=1200 height=300></textarea>
   <button id="query">query</button>
   <button id="stop">stop</button>
   <span id="counter">? <span>times</span></span>
   <iframe id="frame" src="https://www.bing.com/search?q=hello" height="2000" width="1500"></iframe>
+  </body>
   <script>
     const ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     function randInt ( n, s = 0 ) { // [s,s+n)
