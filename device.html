@@ -58,7 +58,7 @@
     const bq = async () => {
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
       let p = Promise.resolve()
-      for (const q of groupPairsAsString(qs, randInt(2,4))) {
+      for (const q of groupPairsAsString(qs, randInt(2,2))) {
         p = p.then(()=>{
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
           //open(home, '_blank') // open in new window
