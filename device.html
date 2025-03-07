@@ -60,8 +60,8 @@
     const bq = async () => {
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
       let p = Promise.resolve()
-      const qsg = groupPairsAsString(qs, randInt(2,2)).slice(0,30)
-      conterEle.textContent = `${qsg.length}`
+      const qsg = groupPairsAsString(qs, randInt(2,2)).slice(0,35)
+      counterEle.textContent = `${qsg.length}`
       for (const q of qsg) {
         p = p.then(()=>{
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
