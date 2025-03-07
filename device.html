@@ -14,10 +14,11 @@
     p.textContent = navigator.deviceMemory
     document.body.append(p)
   </script>
-  <textarea id="ta" placeholder="queries;qa;qb..." width=1200 height=300></textarea>
+  <textarea id="ta" placeholder="queries;qa;qb..." style="width:1200px; height:300px"></textarea>
   <button id="query">query</button>
   <button id="stop">stop</button>
-  <span id="counter">? <span>times</span></span>
+  <span id="counter">? <span>input count</span></span>
+  <span id="times">? <span>finish times</span></span>
   <iframe id="frame" src="https://www.bing.com/search?q=hello" height="2000" width="1500"></iframe>
   </body>
   <script>
@@ -51,22 +52,25 @@
       }
     }
     let close
-    let counter = 0
+    let times = 0
     const ta = document.querySelector('#ta')
     const frame = document.querySelector('#frame')
     const counterEle = document.querySelector('#counter')
+    const timesEle = document.querySelector('#times')
     const bq = async () => {
       const qs = ta.value.split(/\n|;| /).filter(v=>v)
       let p = Promise.resolve()
-      for (const q of groupPairsAsString(qs, randInt(2,2))) {
+      const qsg = groupPairsAsString(qs, randInt(2,2)).slice(0,30)
+      conterEle.textContent = `${qsg.length}`
+      for (const q of qsg) {
         p = p.then(()=>{
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
           //open(home, '_blank') // open in new window
           frame.src = home // load in iframe
           const [p, c] = timer(randInt(5000,5000))
           close = c
-          counter += 1
-          counterEle.textContent = `${counter} ` 
+          times += 1
+          timesEle.textContent = `${times} ` 
           return p
         })
         
