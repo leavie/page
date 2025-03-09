@@ -67,7 +67,7 @@
           const home = `//www.bing.com/search?q=${q}&FORM=${randString(ALPHA_UPPER,4)}${randInt(10)}`
           //open(home, '_blank') // open in new window
           frame.src = home // load in iframe
-          const [p, c] = timer(randInt(5000,5000))
+          const [p, c] = timer(randInt(5000,6000))
           close = c
           times += 1
           timesEle.textContent = `${times} ` 
