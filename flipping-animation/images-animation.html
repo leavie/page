@@ -118,17 +118,17 @@
     function toggleBigHidden ( big ) {
         big.hidden = !big.hidden
     }
-    const toggleBigHiddenWithFlip = flipping.wrap(toggleBigHidden.bind(null, big))
+    const toggleBigHiddenWithFlip = flipping.wrap(toggleBigHidden)
 
     function addEventListeners () {
         rows.onclick = (e) => {
             setImgFlipKey( e.target )
-            toggleBigHiddenWithFlip()
+            toggleBigHiddenWithFlip( big )
         }
 
         big.onclick = () => {
             setBigFlipKey( big )
-            toggleBigHiddenWithFlip()
+            toggleBigHiddenWithFlip( big )
         }
 
     }

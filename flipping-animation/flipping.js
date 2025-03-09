@@ -60,10 +60,10 @@
         const flippingElements = {}
 
         this.wrap = (wrapped) => {
-            return () => {
+            return (...args) => {
 
                 const firstRects = read()
-                const ret = wrapped()
+                const ret = wrapped.apply(null, args)
                 const lastRects = read()
                 flip(firstRects, lastRects)
                 return ret
