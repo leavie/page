@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Frameworkless One-Way DataBinding</title>
+    </head>
+
+    <body>
+        <p class="js-bounded-quote">My favorite {{ movie }} quote is "{{ quote }}" </p>
+
+        <script>
+            class BoundNode {
+                constructor ( node ) {
+                    this.template = node.innerHTML
+                    this.node = node
+                }
+
+                update = ( data ) => {
+                    this.node.innerHTML = this.template.replaceAll( /\{\{\s?(\w+)\s?\}\}/g,
+                        ( match, variable ) => data[ variable ] || '' )
+                }
+
+            }
+
+            class BoundModel {
+                constructor () {
+                    const callbacks = []
+                    const data = {
+                        addCallBack ( fn ) {
+                            callbacks.push( fn )
+                        }
+                    }
+                    const proxy = new Proxy( data, {
+                        set ( target, key, value ) {
+                            target[ key ] = value
+                            callbacks.forEach( c => c() )
+                            return true
+                        }
+                    } )
+
+                    return proxy
+                }
+            }
+
+            const data_blob = {
+                movie: 'Iron Man',
+                quote: 'The best weapon is the one you never have to fire.',
+            }
+
+            const quote_model = new BoundModel( data_blob )
+            const quote_node = new BoundNode( document.querySelector( '.js-bounded-quote' ) )
+
+            quote_model.addCallBack( () => {
+                quote_node.update( quote_model )
+            } )
+
+            const quotes = [
+                'I am Iron Man.',
+                'I love you 3000.',
+                'I told you, I don’t want to join your super secret boy band.',
+                'Sometimes you’ve gotta run before you can walk.',
+                'Doth mother know you weareth her drapes?',
+                'Big man in his suit of armor. Take that off and what are you? Genius, Billionaire, Playboy, Philanthropist.'
+            ]
+
+            window.setInterval( () => {
+                quote_model.quote = quotes[ ( Math.random() * quotes.length ) | 0 ]
+            }, 1000 )
+        </script>
+    </body>
+
+</html>

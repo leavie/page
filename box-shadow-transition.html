@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>box shadow transition</title>
+        <style>
+            body {
+                margin: 0;
+                background-color: #efefef;
+            }
+
+            a {
+                text-decoration: none;
+                font-size: 32px;
+            }
+
+            .box {
+                position: relative;
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            .box::after {
+                content: "";
+                border-radius: 5px;
+                position: absolute;
+                z-index: -1;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                opacity: 0;
+                transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            .box:hover {
+                -webkit-transform: scale(1.25, 1.25);
+                transform: scale(1.25, 1.25);
+            }
+
+            .box:hover::after {
+                opacity: 1;
+            }
+
+            .f-c-c {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .h-full {
+                height: 100vh;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="f-c-c h-full">
+            <div class="box f-c-c">
+                <a href="https://tobiasahlin.com/blog/how-to-animate-box-shadow/">➡︎</a>
+            </div>
+        </div>
+    </body>
+
+</html>

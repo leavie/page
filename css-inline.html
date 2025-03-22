@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CSS Inline </title>
+        <style>
+            [font-3=""] {
+                font-size: calc(3rem / 4);
+            }
+
+            [font-5=""] {
+                font-size: calc(5rem / 4);
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <span font-3>this is a span element</span>
+        <a font-5>this is an anchor element</a>
+        <span font-3>this is a span element</span>
+        <a font-5>this is an anchor element</a>
+
+        <pre>
+            inline element 的寬高不能指定，只能依渲染內容決定
+            多個 inline element 會排成一列，如果寬度不夠才折行
+        </pre>
+    </body>
+
+</html>

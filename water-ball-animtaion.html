@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            html {
+                height: 100%;
+            }
+
+            body {
+                margin: 0;
+                height: 100%;
+            }
+
+            .container {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-flow: column;
+            }
+
+            .ball {
+                position: relative;
+                width: 100px;
+                height: 100px;
+                background-color: black;
+                border-radius: 50%;
+                animation: ball linear 8s infinite;
+                transform-origin: bottom;
+            }
+
+            .water {
+                position: absolute;
+                width: 90px;
+                height: 45px;
+                background-color: blue;
+                border-radius: 0 0 45px 45px;
+                bottom: 5px;
+                left: 5px;
+                animation: ball 8s linear reverse infinite;
+                transform-origin: top;
+            }
+
+            .label {
+                text-align: center;
+                color: white;
+                font-size: 12px;
+                line-height: 50px;
+            }
+
+            @keyframes ball {
+                0% {
+                    transform: rotateZ(0deg);
+                    ;
+                }
+
+                25% {
+                    transform: rotateZ(60deg);
+                    ;
+                }
+
+                50% {
+                    transform: rotateZ(0deg);
+                    ;
+                }
+
+                75% {
+                    transform: rotateZ(-60deg);
+                    ;
+                }
+
+                100% {
+                    transform: rotateZ(0deg);
+                }
+            }
+
+            @keyframes water {
+                0% {
+                    transform: rotateZ(0deg);
+                    ;
+                }
+
+                25% {
+                    transform: rotateZ(45deg);
+                    ;
+                }
+
+                50% {
+                    transform: rotateZ(0deg);
+                    ;
+                }
+
+                75% {
+                    transform: rotateZ(-45deg);
+                    ;
+                }
+
+                100% {
+                    transform: rotateZ(0deg);
+                }
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="ball">
+                <div class="water">
+                    <div class="label">
+                        water
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: black;height: 10px;width: 100vw;"></div>
+        </div>
+
+    </body>
+
+</html>

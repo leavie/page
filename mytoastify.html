@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MyToastify 示例</title>
+        <!-- 引入 Toastify 的 CSS -->
+        <style>
+            .toastify {
+                position: absolute;
+                top: 0px;
+                /* right: 0px; */
+                padding: 1rem 1.5rem;
+                background: linear-gradient(to right, #00b09b, #96c93d);
+                border-radius: 3px;
+                font-size: 1rem;
+                font-family: monospace;
+                color: white;
+                cursor: pointer;
+                transition: top 0.2s linear, opacity 0.3s ease-in;
+                animation: slide-into .4s ease-out;
+            }
+
+            .toastify a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            @keyframes slide-into {
+                0% {
+                    transform: translateY(-80px);
+                }
+            }
+        </style>
+        <script>
+            // 創建Toastify class
+            class MyToastify {
+                constructor () {
+                    // toast element
+                    this.toastElement = null
+                    this.duration = 2000
+                    console.log( "Toastify class created" )
+                }
+                // 顯示Toast
+                show ( text ) {
+                    console.log( "Toastify show method called" )
+                    const t = document.createElement( 'div' )
+                    const a = document.createElement( 'a' )
+                    a.href = "https:www.example.com"
+                    a.target = "_blank"
+                    a.textContent = 'Toastify show method called: ' + text
+                    t.appendChild( a )
+
+                    t.classList.add( 'toastify' )
+                    document.body.appendChild( t )
+                    this.toastElement = t
+                    this.update()
+                    let clearTimtout = setTimeout( () => {
+                        this.remove()
+                    }, this.duration )
+                    t.addEventListener( 'mouseenter', () => {
+                        clearTimeout( clearTimtout )
+                    }
+                    )
+                    t.addEventListener( 'mouseleave', () => {
+                        clearTimtout = setTimeout( () => {
+                            this.remove()
+                        }, this.duration )
+                    }
+                    )
+
+                }
+                // 隱藏Toast
+                hide () {
+                    console.log( "Toastify hide method called" )
+                }
+                // 刪除Toast
+                remove () {
+                    console.log( "Toastify remove method called" )
+                    console.log( 'toast element', this.toastElement )
+                    this.toastElement.style.opacity = 0
+                    this.toastElement.addEventListener( 'transitionend', () => {
+                        this.toastElement.remove()
+                    } )
+                }
+                // 更新Toast
+                update () {
+                    console.log( "Toastify update method called" )
+                    // find all toast element
+                    const toasts = document.getElementsByClassName( 'toastify' )
+                    const n = toasts.length
+                    for ( let i = 0; i < toasts.length; i++ ) {
+                        toasts[ i ].style.top = ( n - i - 1 ) * 75 + 50 + 'px'
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <div style="display: flex; justify-content: flex-end;">
+            <button onclick="f()">Show Toast</button>
+        </div>
+    </body>
+    <script>
+        let i = 0
+        f = () => {
+            new MyToastify().show( i++ )
+        }
+    </script>
+
+</html>

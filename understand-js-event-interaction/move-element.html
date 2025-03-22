@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Move Element</title>
+    <style>
+        .box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(195, 229, 244);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+
+        const element = document.querySelector( '.box' )
+        const clearDraggable = draggable( element )
+
+        // setTimeout( () => {
+        //     clearDraggable()
+        //     alert( 'draggable is cleared' )
+        // }, 3000 )
+
+        /**
+         *
+         * @param {HTMLElement} element
+         * @returns {Function} clearDraggable 清除拖拽效果
+         * @description 使 element 可以被拖曳
+         *
+         */
+        function draggable ( element ) {
+            let elementReact
+            let prevE = { x: 0, y: 0 }
+
+            document.addEventListener( 'mousedown', startDrag )
+
+            /**@param {MouseEvent} event*/
+            function startDrag ( event ) {
+                event.preventDefault()
+                /** @type {DOMRect} elementReact */
+                elementReact = element.getBoundingClientRect()
+
+                prevE = { x: event.x, y: event.y }
+
+                // avoid mouse pointer outside of the element
+                if ( event.clientX < elementReact.left
+                    || event.clientX > elementReact.right
+                    || event.clientY < elementReact.top
+                    || event.clientY > elementReact.bottom ) {
+                    return
+                }
+
+                document.addEventListener( 'mousemove', drag )
+                document.addEventListener( 'mouseup', clearDrag )
+            }
+
+            function clearDrag () {
+                document.removeEventListener( 'mousemove', drag )
+                document.removeEventListener( 'mouseup', clearDrag )
+            }
+
+            /**@param {MouseEvent} event*/
+            function drag ( event ) {
+                const dx = event.clientX - prevE.x
+                const dy = event.clientY - prevE.y
+                element.style.left = dx + elementReact.left + 'px'
+                element.style.top = dy + elementReact.top + 'px'
+            }
+
+
+            return function (){
+                document.removeEventListener( 'mousemove', drag )
+                document.removeEventListener( 'mouseup', clearDrag )
+                document.removeEventListener( 'mousedown', startDrag )
+            }
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

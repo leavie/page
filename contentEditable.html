@@ -1,0 +1,5 @@
+<div id=div contentEditable oninput="console.log(1,event)">div</div>
+<input value="sdf" onchange="console.log('input', event)"/>
+<textarea value="sdf" onchange="console.log('textarea')"></textarea>
+<h1>sdfsdf</h1>
+<script>div.onchange = (e) => console.log(e.target.value)</script>

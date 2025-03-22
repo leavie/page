@@ -1,0 +1,52 @@
+<canvas id="myCanvas"></canvas>
+<Script Language="JavaScript">
+    <!--
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    let control1 = 500
+    let control2 = 1000
+    let isDrawing = false
+    canvas.onmousedown = down
+    canvas.onmouseup = up
+    canvas.onmousemove = moveControlPoint
+    drawArrow() // first draw
+    console.log('default distance:',control2-control1,'px')
+
+    function drawArrow() {
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        ctx.beginPath();
+        ctx.moveTo(100, 100)
+        ctx.lineTo(control2, 100)
+        ctx.moveTo(100, 100)
+        ctx.lineTo(200, 50)
+        ctx.moveTo(100, 100)
+        ctx.lineTo(200, 150)
+        ctx.moveTo(control1, 100)
+        ctx.lineTo(control1-100, 50)
+        ctx.moveTo(control1, 100)
+        ctx.lineTo(control1-100, 150)
+        ctx.moveTo(control2, 100)
+        ctx.lineTo(control2+100, 150)
+        ctx.moveTo(control2, 100)
+        ctx.lineTo(control2+100, 50)
+        ctx.stroke()
+    }
+    function down() {
+        isDrawing = true
+    }
+
+    function up() {
+        isDrawing = false
+    }
+
+    function moveControlPoint(e) {
+        if (!isDrawing) return
+        control2 = e.clientX
+        if (control2 < control1) return
+        console.log(control2-control1,'px')
+
+        drawArrow() // redraw
+    }
+    -->
+</SCRIPT>

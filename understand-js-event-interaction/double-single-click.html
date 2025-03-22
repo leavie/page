@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Move Element</title>
+    <style>
+        .box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(195, 229, 244);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+
+        const element = document.querySelector( '.box' )
+        const clickHandler = useHandleClick(function () {
+            alert('clicked')
+        }, function() {
+            alert('double clicked')
+        })
+
+        let E
+        document.documentElement.addEventListener('click', ( e ) => alert( e.currentTarget + 'clicked' ), false )
+        document.documentElement.addEventListener('click', ( e ) => setTimeout((e)=>alert( E.currentTarget + 'clicked' ), 2000, E=e), false )
+        // document.documentElement.addEventListener('dblclick', ( e ) => setTimeout((e)=>alert( e.currentTarget.toString() + 'dboule clicked' ), 2000, e), false )
+        // document.documentElement.addEventListener('click', ( e ) => setTimeout((e)=>alert( e.currentTarget.toString() + 'clicked' ), 2000, e), false )
+        // document.addEventListener( 'click', (e)=>setTimeout((e)=>alert(e.currentTarget.toString() + 'clicked'), 2000, e), false )
+
+
+        /**
+         * @param {{ (event: Event): void; (arg0: any): void; }} clickCb
+         * @param {{ (event: Event): void; (arg0: any): void; }} dbclickCb
+         * @return {Function} click handler 可以響應 double click 跟 single click 的事件處理器
+         * @example
+         *
+         * const clickHandler = useHandleClick(function () {
+         *    alert('clicked')
+         * }, function() {
+         *   alert('double clicked')
+         * })
+         * document.addEventListener('click', clickHandler)
+         * document.addEventListener('dblclick', clickHandler)
+         *
+         * @link https://stackoverflow.com/questions/880608/prevent-click-event-from-firing-when-dblclick-event-fires
+         */
+        function useHandleClick ( clickCb, dbclickCb ) {
+            const CLICK_DELAY = 200
+            let isDoubleClicked = false
+            let clickTimout = null, dbclickTimout = null
+
+            return function (/** @type {Event} */ event ) {
+                if ( "dblclick" === event.type ) {
+                    // console.log( "double clicked" )
+                    isDoubleClicked = true
+                    clearTimeout( dbclickTimout )
+                    dbclickTimout = setTimeout( function () {
+                        isDoubleClicked = false
+                    }, CLICK_DELAY )
+
+                    // call dbclickCb
+                    dbclickCb( event.type )
+                } else if ( "click" === event.type ) {
+                    // console.log( "clicked" )
+                    clearTimeout( clickTimout )
+                    clickTimout = setTimeout( function () {
+                        if ( !isDoubleClicked ) {
+                            // call clickCb
+                            clickCb( event.type )
+                        } else {
+                            isDoubleClicked = false
+                        }
+                    }, CLICK_DELAY )
+                }
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
