@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mvvm</title>
+    <meta charset="utf-8">
+    <script src="./mvvm.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model="school.name"/>
+        <input v-model="school.age"/>
+        <!-- <input v-model="school.bb"/> -->
+        <p>{{school.name}} {{school.age}}</p>
+        <pre v-text="school"></pre>
+    </div>
+    <script>
+        new MVVM({
+            data: {
+                school: {
+                    name: 'aaa',
+                    age: 18
+                }
+            },
+            el: '#app'
+        })
+    </script>
+</body>
+</html>
