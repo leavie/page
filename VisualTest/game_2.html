@@ -1,0 +1,111 @@
+<canvas id="myCanvas"></canvas>
+<input id="in">
+<Script Language="JavaScript">
+    let input = document.querySelector('#in')
+
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    let control1 = 750
+    let control2 = 1400
+    let default_distance = control2 - control1
+    let isDrawing = false
+    canvas.onmousedown = down
+    canvas.onmouseup = up
+    canvas.onmousemove = moveControlPoint
+    //drawArrow() // polygon draw
+    var r = (control2 - control1) / default_distance
+    r = r.toFixed(3)
+    // 取小數點後幾位
+    input.value = r
+    console.log('default distance:', control2 - control1, 'px')
+    let Angle = 60
+    //15,30,45,60,90
+    drawArrow();
+
+    function drawArrow() {
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        ctx.beginPath();
+        ctx.moveTo(100, 100)
+        ctx.lineTo(control2, 100)
+        var AngleLineLength = 118.51;
+        //觸手的長度別問為甚麼就是我算過的比例就對了
+        ctx.moveTo(100, 100)
+        ctx.lineTo(100 + Math.cos(Angle / 2 * Math.PI / 180) * AngleLineLength, 100 + Math.sin(Angle / 2 * Math.PI / 180) * AngleLineLength)
+
+        ctx.moveTo(100, 100)
+        ctx.lineTo(100 + Math.cos((360 - Angle / 2) * Math.PI / 180) * AngleLineLength, 100 + Math.sin((360 - Angle / 2) * Math.PI / 180) * AngleLineLength)
+
+        ctx.moveTo(control1, 100)
+        ctx.lineTo(control1 - Math.cos(Angle / 2 * Math.PI / 180) * AngleLineLength, 100 + Math.sin(Angle / 2 * Math.PI / 180) * AngleLineLength)
+
+        ctx.moveTo(control1, 100)
+        ctx.lineTo(control1 - Math.cos((360 - Angle / 2) * Math.PI / 180) * AngleLineLength, 100 + Math.sin((360 - Angle / 2) * Math.PI / 180) * AngleLineLength)
+
+        ctx.moveTo(control2, 100)
+        ctx.lineTo(control2 + Math.cos(Angle / 2 * Math.PI / 180) * AngleLineLength, 100 + Math.sin(Angle / 2 * Math.PI / 180) * AngleLineLength)
+
+        ctx.moveTo(control2, 100)
+        ctx.lineTo(control2 + Math.cos((360 - Angle / 2) * Math.PI / 180) * AngleLineLength, 100 + Math.sin((360 - Angle / 2) * Math.PI / 180) * AngleLineLength)
+
+        ctx.stroke()
+    }
+    //以下為defult functions
+    /*function drawArrow() {
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        ctx.beginPath();
+        ctx.moveTo(100, 100)
+        ctx.lineTo(control2, 100)
+        var AngleLineLength = 118.51;//觸手的長度別問為甚麼就是我算過的比例就對了
+		ctx.moveTo(100, 100)
+        ctx.lineTo(100 + Math.cos(7.5*Math.PI/180) * AngleLineLength, 100+ Math.sin(7.5*Math.PI/180) * AngleLineLength )
+
+		ctx.moveTo(100, 100)
+        ctx.lineTo(100 + Math.cos(352.5*Math.PI/180) * AngleLineLength , 100+ Math.sin(352.5*Math.PI/180) *AngleLineLength )
+
+		ctx.moveTo(control1, 100)
+        ctx.lineTo(control1- Math.cos(7.5*Math.PI/180) * AngleLineLength, 100+ Math.sin(7.5*Math.PI/180) * AngleLineLength)
+
+		ctx.moveTo(control1, 100)
+        ctx.lineTo(control1-Math.cos(352.5*Math.PI/180) * AngleLineLength,100+ Math.sin(352.5*Math.PI/180) *AngleLineLength )
+
+		ctx.moveTo(control2, 100)
+        ctx.lineTo(control2+Math.cos(7.5*Math.PI/180) * AngleLineLength, 100+Math.sin(7.5*Math.PI/180) * AngleLineLength)
+
+		ctx.moveTo(control2, 100)
+        ctx.lineTo(control2+Math.cos(352.5*Math.PI/180) * AngleLineLength , 100+Math.sin(352.5*Math.PI/180) *AngleLineLength)
+
+		ctx.stroke()
+	}*/
+    function down() {
+        isDrawing = true
+    }
+
+    function up() {
+        isDrawing = false
+    }
+
+    function moveControlPoint(e) {
+        if (!isDrawing)
+            return
+        console.log(control2 - control1, 'px')
+        control2 = e.clientX
+        drawArrow()
+        // redraw
+    }
+    function moveControlPoint(e) {
+        if (!isDrawing)
+            return
+        control2 = e.clientX
+        if (control2 < control1)
+            return
+        //         console.log(control2-control1,'px')
+        var r = (control2 - control1) / default_distance
+        r = r.toFixed(3)
+        // 取小數點後幾位
+        input.value = r
+        drawArrow()
+        // redraw
+    }
+</SCRIPT>

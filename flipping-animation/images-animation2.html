@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Images Animation</title>
+        <style>
+            /* stylelint-disable-next-line selector-max-type */
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .box {
+                position: relative;
+                top: 200px;
+                /*                 border: 2px red dashed; */
+                left: 150px;
+                width: 200px;
+                height: 200px;
+                background: #f0f8ff;
+                box-sizing: border-box;
+            }
+
+            .big {
+                box-sizing: border-box;
+                width: 500px;
+                height: 500px;
+                background: #ffc0cb;
+                /*                 border: 2px red dashed; */
+            }
+
+            .text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                font-size: 5rem;
+                color: #ffffff;
+                user-select: none;
+            }
+
+            :root {
+                background: #efefef;
+            }
+
+            .rows {
+                display: flex;
+                justify-content: space-evenly;
+                /* height: 120vh; */
+                flex-flow: row wrap;
+                align-content: space-evenly;
+            }
+
+            .rows.active .wrapper {
+                /* flex-direction: column; */
+                flex-grow: 1;
+            }
+
+            .rows .wrapper {
+                padding: 15px 20px;
+                width: 200px;
+                background: #ffffff;
+                border-radius: 8px;
+                box-shadow: 1px 3px 11px 2px #3232321a;
+                /* transition: all 5s linear; */
+            }
+
+            .wrapper img {
+                width: 100%;
+            }
+
+            .modal {
+                position: absolute;
+                top: 0;
+                display: block;
+                height: 100vh;
+                background: #000000;
+            }
+
+            .model__wrapper {
+                width: 100vw;
+            }
+
+            /* stylelint-disable-next-line selector-max-type */
+            .model__wrapper img {
+                width: 100vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="rows">
+            <div class="wrapper" data-flip-key="photoA">
+                <img src="asset/image/photo-zelda.webp"/>
+            </div>
+            <div class=" wrapper" data-flip-key="photoB">
+                <img src="asset/image/photo-zelda.webp"/>
+            </div>
+            <div class=" wrapper" data-flip-key="photoC">
+                <img src="asset/image/photo-zelda.webp"/>
+            </div>
+        </div>
+    </body>
+    <script src="flipping.js"></script>
+    <script>
+        const imgs = Array.from(document.querySelectorAll('.wrapper img'))
+        
+        const flipping = new Flipping()
+
+        function init() {
+           
+        }
+
+        function addEventListeners() {
+            function fn() {
+                document.querySelector('.rows').classList.toggle('active')
+            }
+            window.a = flipping.wrap(fn)
+            document.querySelector('.rows').onclick = window.a
+            
+
+        }
+        init()
+        addEventListeners()
+    </script>
+</html>

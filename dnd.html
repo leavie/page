@@ -1,0 +1,30 @@
+<div id=drag draggable=true>drag</div>
+<div id=drop>drop<span id="msg"></div>
+<script>
+    let i = 0;
+    drag.addEventListener('dragstart', e=>{
+        e.dataTransfer.setData('text/plain', '這是一段測試文字');
+        console.log(drag.textContent)
+        msg.textContent = ''
+        drop.style.background = ''
+        drop.style.border = ''
+    }
+    )
+    drop.ondragover = e=> {
+        e.preventDefault();
+        console.log('over');
+        drop.style.border = `dashed hsl(0deg, ${i=(i+2)%100}%, 50%) 2px`
+    }
+    drop.ondragleave = e => {
+        drop.style.border = ''
+    }
+    drop.addEventListener('drop', e=>{
+        const data = e.dataTransfer.getData('text/plain');
+        console.log(drop.textContent, ': ', data)
+        msg.textContent = data
+        drop.style.background = '#f9d8d3'
+        drop.style.border = `solid hsl(0deg, 100%, 40%) 2px`
+    }
+    )
+</script>
+

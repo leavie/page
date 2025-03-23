@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Memento Pattern 備忘錄模式</title>
+        <style>
+            body {
+                margin: 50px;
+                text-align: center;
+                background: linear-gradient(76.3deg, rgba(44, 62, 78, 1) 12.6%, rgba(69, 103, 131, 1) 82.8%);
+                height: 250px;
+                overflow: hidden;
+            }
+
+            input {
+                padding: 12px;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <input type="email" id="emailInput" placeholder="Enter your email" />
+    </body>
+    <script>
+        const ERROR_COLOR = 'tomato'
+        const ERROR_BORDER_COLOR = 'red'
+        const ERROR_SHADOW = `0px 0px 25px rgba(230,0,0,0.35)`
+        const CIRCLE_BORDER = '50%'
+        const ROUNDED_BORDER = '4px'
+
+        const toggleElementsStatus = (el, status) =>
+        {
+            if (status == 'error') {
+                return Object.assign(el.style, {
+                    borderColor: ERROR_BORDER_COLOR,
+                    color: ERROR_COLOR,
+                    boxShadow: ERROR_SHADOW,
+                    outline: 'red',
+                })
+            }
+            return Object.assign(el.style, {
+                borderColor: 'black',
+                color: 'black',
+                boxShadow: '',
+                outline: '',
+            })
+        }
+        toggleBorderRadius = (el, preset) =>
+        {
+            el.style.borderRadius =
+                preset === 'rounded'
+                    ? ROUNDED_BORDER
+                    : preset === 'circle'
+                        ? CIRCLE_BORDER
+                        : '0px'
+        }
+
+        function createOriginator({ serialize, deserialize })
+        {
+            return {
+                serialize,
+                deserialize
+            }
+        }
+
+        const originator = createOriginator({
+            serialize(...nodes)
+            {
+                const state = []
+
+                nodes.forEach(
+                    /**
+                     * @param {HTMLInputElement} node
+                     *
+                    */
+                    (node) =>
+                    {
+                        const item = {
+                            id: node.id || '',
+                        }
+
+                        item.tagName = node.tagName.toLower()
+
+                        if (item.tagName === 'input') {
+                            item.isError =
+                                node.style.borderColor === ERROR_BORDER_COLOR &&
+                                node.style.color === ERROR_COLOR
+                            item.value = node.value
+                        }
+
+                        item.isRounded = node.style.borderRadius === ROUNDED_BORDER
+                        item.isCircle = node.style.borderRadius === CIRCLE_BORDER
+
+                        state.push(item)
+                    }
+                )
+
+                return states
+            },
+            deserialize(...state)
+            {
+                const nodes = []
+
+                state.forEach(item =>
+                {
+                    const node = document.createElement(item.tagName)
+
+                    if (item.tagName === 'input') {
+                        if (item.isError) {
+                            node.style.borderColor = ERROR_BORDER_COLOR
+                            node.style.color = ERROR_COLOR
+                        }
+                        node.value = item.value
+                    }
+
+                    if (item.isRounded) {
+                        toggleBorderRadius(node, 'rounded')
+                    } else if (item.isCircle) {
+                        toggleBorderRadius(node, 'circle')
+                    }
+
+                    nodes.push(node)
+                })
+
+                return nodes
+            }
+        })
+    </script>
+    <script>
+        // add transition to div
+    </script>
+
+</html>
